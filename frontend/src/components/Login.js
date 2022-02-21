@@ -1,6 +1,29 @@
 import logo from '../images/img_avatar2.png'
 import '../css/login.css'
+import {useState} from "react";
+import {useHistory} from "react-router-dom";
+import axios from "axios";
 const Login = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [msg,setMsg] = useState('');
+    const history = useHistory();
+
+    const Auth = async (e) => {
+        e.preventDefault();
+        try {
+            await  axios.post('http://localhost:5000/login', {
+                email : email,
+                password : password
+            });
+            history.push()
+        }catch (error){
+            if(error.response){
+                setMsg(error.response.data.msg)
+            }
+        }
+    }
 
     return (
         <section className="hero has-background-grey-light is-fullheight is-fullwidth">

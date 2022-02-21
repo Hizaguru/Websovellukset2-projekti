@@ -34,7 +34,7 @@ const Register = () => {
                     <div className="columns is-centered">
                         <div className="column is-4-desktop">
                             <form onSubmit={Register} className="box">
-                                <h1>Register</h1>
+                                <h1 className={"header"}>Register</h1>
                                 <p1>Please fill the form</p1>
                                 <hr/>
                                 <p className="has-text-centered">{message}</p>
@@ -61,15 +61,21 @@ const Register = () => {
                                                onChange={(e) => setPassword(e.target.value)} />
                                     </div>
                                 </div>
+                                <div className="field mt-5">
                                     <label className="label">Confirm Password</label>
-                                    <div className="">
+                                    <div className="controls">
                                         <input type="password" className="input" placeholder="******"
                                                value={confirmationPassword}
                                                onChange={(e) => setConfirmationPassword(e.target.value)} />
+                                    </div>
                                 </div>
                                 <div className="field mt-5">
                                     <button className="" >Register</button>
                                 </div>
+                                <div className={"container signin"}>
+                                    <p>Already have an account? <a href={"/"}>Sign in</a></p>
+                                </div>
+                                <hr/>
                             </form>
                         </div>
                     </div>

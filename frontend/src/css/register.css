@@ -12,3 +12,10 @@ button{
 .container {
     padding: 16px;
 }
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+h1{
+    font-size: xxx-large;
+}

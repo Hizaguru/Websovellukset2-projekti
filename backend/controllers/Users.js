@@ -23,6 +23,7 @@ export const Register = async(req, res) => {
             name: name,
             email: email,
             password: hashPassword
+
         });
         res.json({msg: "Registration Successful"});
     } catch (error) {

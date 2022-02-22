@@ -3,12 +3,8 @@
     span.psw {
         display: block;
         float: none;
+        margin-top: 10px;
     }
-
-    .cancelbtn {
-        width: 100%;
-    }
-
 }
 img.avatar {
     width: 40%;

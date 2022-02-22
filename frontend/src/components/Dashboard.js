@@ -75,7 +75,6 @@ const Dashboard = () => {
                         <td>{user.email}</td>
                     </tr>
                 ))}
-
                 </tbody>
             </table>
         </div>

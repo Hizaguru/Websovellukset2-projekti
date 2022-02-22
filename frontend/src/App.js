@@ -3,6 +3,7 @@ import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
+import ProfilePage from "./components/ProfilePage"
 
 function App() {
     return (
@@ -17,6 +18,10 @@ function App() {
                 <Route path="/dashboard">
                     <Navbar/>
                     <Dashboard/>
+                </Route>
+                <Route path="/profilepage">
+                    <Navbar/>
+                    <ProfilePage/>
                 </Route>
             </Switch>
         </BrowserRouter>

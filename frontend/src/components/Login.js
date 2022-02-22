@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import '../css/login.css'
 
 const Login = () => {
+
     const [email, setEmail] = useState(' ');
     const [password, setPassword] = useState(' ');
     const [msg, setMsg] = useState(' ');
@@ -16,9 +18,7 @@ const Login = () => {
                 email: email,
                 password: password
             });
-
-
-            history.push("/dashboard");
+            history.push("/profilepage");
         } catch (error) {
             console.log("error")
             console.log(email, " ", password)
@@ -38,7 +38,7 @@ const Login = () => {
                             <form onSubmit={Auth} className="box">
                                 <p className="has-text-centered">{msg}</p>
                                 <div className="field mt-5">
-                                    <label className="label">Email or Username</label>
+                                    <label className="label">Email</label>
                                     <div className="controls">
                                         <input type="text" className="input" placeholder="Username" value={email} onChange={(e) => setEmail(e.target.value)} />
                                     </div>
@@ -51,6 +51,9 @@ const Login = () => {
                                 </div>
                                 <div className="field mt-5">
                                     <button className="button is-success is-fullwidth">Login</button>
+                                    <div className={"container"}>
+                                        <span className={"psw"}><a href={"#"}>Forgot password?</a></span>
+                                    </div>
                                 </div>
                             </form>
                         </div>

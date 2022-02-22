@@ -19,7 +19,7 @@ const Navbar = () => {
         <nav className="navbar is-light" role="navigation" aria-label="main navigation">
             <div className="container">
                 <div className="navbar-brand">
-                    <a className="navbar-item" href="https:www.jukkis.org">
+                    <a className="navbar-item" href="https://www.jukkis.org">
                         <img src={logo} width="112" height="28" alt="logo" />
                     </a>
 

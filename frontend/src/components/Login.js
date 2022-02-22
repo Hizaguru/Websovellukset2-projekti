@@ -5,9 +5,9 @@ import '../css/login.css'
 
 const Login = () => {
 
-    const [email, setEmail] = useState(' ');
-    const [password, setPassword] = useState(' ');
-    const [msg, setMsg] = useState(' ');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [msg, setMsg] = useState('');
     const history = useHistory();
 
     const Auth = async (e) => {
@@ -29,12 +29,14 @@ const Login = () => {
         }
     }
 
+
     return (
         <section className="hero has-background-grey-light is-fullheight is-fullwidth">
             <div className="hero-body">
                 <div className="container">
                     <div className="columns is-centered">
                         <div className="column is-4-desktop">
+
                             <form onSubmit={Auth} className="box">
                                 <p className="has-text-centered">{msg}</p>
                                 <div className="field mt-5">
@@ -52,7 +54,7 @@ const Login = () => {
                                 <div className="field mt-5">
                                     <button className="button is-success is-fullwidth">Login</button>
                                     <div className={"container"}>
-                                        <span className={"psw"}><a href={"#"}>Forgot password?</a></span>
+                                        <span className={"psw"}><a href={"/register"}>Don't have an account?</a></span>
                                     </div>
                                 </div>
                             </form>

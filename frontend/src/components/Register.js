@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import '../css/register.css'
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -10,6 +11,10 @@ const Register = () => {
     const [msg, setMsg] = useState('');
     const history = useHistory();
 
+    /**
+     * Registers user into the database.
+     * @author Jukka-Pekka Lappalainen
+     * **/
     const Register = async (e) => {
         e.preventDefault();
         try {
@@ -35,6 +40,7 @@ const Register = () => {
                     <div className="columns is-centered">
                         <div className="column is-4-desktop">
                             <form onSubmit={Register} className="box">
+                                <h1 className={"header"}>Register</h1>
                                 <p className="has-text-centered">{msg}</p>
                                 <div className="field mt-5">
                                     <label className="label">Name</label>

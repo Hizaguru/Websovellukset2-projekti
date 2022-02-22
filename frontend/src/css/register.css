@@ -17,10 +17,15 @@ hr {
     margin-bottom: 25px;
 }
 .header {
-    font-size: xxx-large;
+    text-align: center;
+    font-size: xx-large;
     font-weight: bold;
 }
 
 a {
     color: dodgerblue;
+}
+.has-text-centered{
+    margin-top: 10px;
+    color: #c21313;
 }

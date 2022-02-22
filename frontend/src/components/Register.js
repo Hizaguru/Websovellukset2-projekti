@@ -1,32 +1,32 @@
-import React, {useState} from "react";
-import {useHistory} from "react-router-dom";
+import React, { useState } from 'react'
 import axios from "axios";
-import '../css/register.css'
+import { useHistory } from "react-router-dom";
 
-/**
- * @author Jukka-Pekka Lappalainen
- * Creates the user and pushes the data to the database.
- * **/
 const Register = () => {
-    //hooks for setting the values to the database
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmationPassword, setConfirmationPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const [confPassword, setConfPassword] = useState('');
+    const [msg, setMsg] = useState('');
     const history = useHistory();
 
     const Register = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/users',)
-        }catch (error){
-            if(error.response) {
-                setMessage(error.response.data.message);
+            await axios.post('http://localhost:5000/users', {
+                name: name,
+                email: email,
+                password: password,
+                confPassword: confPassword
+            });
+            history.push("/");
+        } catch (error) {
+            if (error.response) {
+                setMsg(error.response.data.msg);
             }
         }
-
     }
+
     return (
         <section className="hero has-background-grey-light is-fullheight is-fullwidth">
             <div className="hero-body">
@@ -34,10 +34,7 @@ const Register = () => {
                     <div className="columns is-centered">
                         <div className="column is-4-desktop">
                             <form onSubmit={Register} className="box">
-                                <h1 className={"header"}>Register</h1>
-                                <p1>Please fill the form</p1>
-                                <hr/>
-                                <p className="has-text-centered">{message}</p>
+                                <p className="has-text-centered">{msg}</p>
                                 <div className="field mt-5">
                                     <label className="label">Name</label>
                                     <div className="controls">
@@ -48,34 +45,24 @@ const Register = () => {
                                 <div className="field mt-5">
                                     <label className="label">Email</label>
                                     <div className="controls">
-                                        <input type="text" className="input" placeholder="Email"
-                                               value={email}
-                                               onChange={(e) => setEmail(e.target.value)} />
+                                        <input type="text" className="input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="field mt-5">
                                     <label className="label">Password</label>
                                     <div className="controls">
-                                        <input type="password" className="input" placeholder="******"
-                                               value={password}
-                                               onChange={(e) => setPassword(e.target.value)} />
+                                        <input type="password" className="input" placeholder="******" value={password} onChange={(e) => setPassword(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="field mt-5">
                                     <label className="label">Confirm Password</label>
                                     <div className="controls">
-                                        <input type="password" className="input" placeholder="******"
-                                               value={confirmationPassword}
-                                               onChange={(e) => setConfirmationPassword(e.target.value)} />
+                                        <input type="password" className="input" placeholder="******" value={confPassword} onChange={(e) => setConfPassword(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="field mt-5">
-                                    <button className="" >Register</button>
+                                    <button className="button is-success is-fullwidth">Register</button>
                                 </div>
-                                <div className={"container signin"}>
-                                    <p>Already have an account? <a href={"/"}>Sign in</a></p>
-                                </div>
-                                <hr/>
                             </form>
                         </div>
                     </div>

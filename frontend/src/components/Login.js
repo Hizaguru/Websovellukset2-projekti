@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import '../css/login.css'
+import logo from '../images/img_avatar2.png'
 
 const Login = () => {
 
@@ -30,6 +31,7 @@ const Login = () => {
     }
 
 
+
     return (
         <section className="hero has-background-grey-light is-fullheight is-fullwidth">
             <div className="hero-body">
@@ -38,6 +40,9 @@ const Login = () => {
                         <div className="column is-4-desktop">
 
                             <form onSubmit={Auth} className="box">
+                                <div className={"imagecontainer"}>
+                                    <img src={logo} className={"avatar"} alt={"avatar"}/>
+                                </div>
                                 <p className="has-text-centered">{msg}</p>
                                 <div className="field mt-5">
                                     <label className="label">Email</label>
@@ -54,7 +59,7 @@ const Login = () => {
                                 <div className="field mt-5">
                                     <button className="button is-success is-fullwidth">Login</button>
                                     <div className={"container"}>
-                                        <span className={"psw"}><a href={"/register"}>Don't have an account?</a></span>
+                                        <span className={"psw"}>Don't have an <a href={"/register"}><u>account?</u></a></span>
                                     </div>
                                 </div>
                             </form>

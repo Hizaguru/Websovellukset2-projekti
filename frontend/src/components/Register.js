@@ -32,7 +32,7 @@ const Register = () => {
             }
         }
     }
-
+    
     return (
         <section className="hero has-background-grey-light is-fullheight is-fullwidth">
             <div className="hero-body">
@@ -43,6 +43,7 @@ const Register = () => {
                                 <h1 className={"header"}>Register</h1>
                                 <p className="has-text-centered">{msg}</p>
                                 <div className="field mt-5">
+
                                     <label className="label">Name</label>
                                     <div className="controls">
                                         <input type="text" className="input" placeholder="Name"
@@ -69,6 +70,9 @@ const Register = () => {
                                 </div>
                                 <div className="field mt-5">
                                     <button className="button is-success is-fullwidth">Register</button>
+                                </div>
+                                <div>
+                                    <span className={"psw"}>Already have an <a href={"/"}><u>account?</u></a></span>
                                 </div>
                             </form>
                         </div>

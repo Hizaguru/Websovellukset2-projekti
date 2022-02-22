@@ -15,9 +15,18 @@ export const getUsers = async(req, res) => {
     }
 }
 
+/**
+ * @author Jukka-Pekka Lappalainen
+ * Validates the user input, Generates user and adds user to the database.
+ *
+ * **/
 export const Register = async(req, res) => {
     const { name, email, password, confPassword } = req.body;
-    if(password !== confPassword) return res.status(400).json({msg: "Passwords don't match"});
+    if(password !== confPassword){
+        return res.status(400).json({msg: "Passwords don't match"});
+    }else if (name === "" || email === "" || password === "" || confPassword === ""){
+        return res.status(400).json({msg: "Fill all fields"});
+    }
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
     try {
@@ -31,6 +40,7 @@ export const Register = async(req, res) => {
         console.log(error);
     }
 }
+
 
 export const Login = async(req, res) => {
     try {

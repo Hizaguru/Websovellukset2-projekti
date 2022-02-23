@@ -2,6 +2,10 @@ import Credentials from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+/**
+ * Validates the user's email address.
+ * @param {string} email - The users email address.
+ * **/
 const validateEmail = (email) => {
     return String(email)
         .toLowerCase()
@@ -9,6 +13,9 @@ const validateEmail = (email) => {
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
 };
+/**
+ * lists the users in the database.
+ * **/
 export const getUsers = async(req, res) => {
     try {
         const users = await Credentials.findAll({
@@ -23,9 +30,7 @@ export const getUsers = async(req, res) => {
 }
 
 /**
- * @author Jukka-Pekka Lappalainen
  * Validates the user input, Generates user and adds user to the database.
- *
  * **/
 export const Register = async(req, res) => {
     const { name, email, password, confPassword } = req.body;
@@ -37,7 +42,7 @@ export const Register = async(req, res) => {
     }else if(!validateEmail(email)){
         return res.status(400).json({msg: "Incorrect email"});
     }
-
+    //Encrypts the password before adding user credentias to the database.
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
     try {

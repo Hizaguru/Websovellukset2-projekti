@@ -2,6 +2,13 @@ import Credentials from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+const validateEmail = (email) => {
+    return String(email)
+        .toLowerCase()
+        .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+};
 export const getUsers = async(req, res) => {
     try {
         const users = await Credentials.findAll({
@@ -22,11 +29,15 @@ export const getUsers = async(req, res) => {
  * **/
 export const Register = async(req, res) => {
     const { name, email, password, confPassword } = req.body;
-    if(password !== confPassword){
-        return res.status(400).json({msg: "Passwords don't match"});
-    }else if (name === "" || email === "" || password === "" || confPassword === ""){
+
+    if(name === "" || email === "" || password === "" || confPassword === ""){
         return res.status(400).json({msg: "Fill all fields"});
+    }else if (password !== confPassword){
+        return res.status(400).json({msg: "Passwords don't match"});
+    }else if(!validateEmail(email)){
+        return res.status(400).json({msg: "Incorrect email"});
     }
+
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
     try {

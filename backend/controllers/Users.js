@@ -2,6 +2,11 @@ import Credentials from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+
+
+// We didn't need to destructure the result here - the results were returned directly
+
+
 /**
  * Validates the user's email address.
  * @param {string} email - The users email address.
@@ -29,20 +34,39 @@ export const getUsers = async(req, res) => {
     }
 }
 
+export const findUser = async (email) => {
+    try{
+        const user = await Credentials.findOne({
+            where: {email: email}
+        });
+        console.log(user)
+        console.log("findUser method")
+        if(user === null){
+            return false;
+        }
+        return true;
+    } catch (error){
+        console.log(error);
+    }
+}
+
+
 /**
  * Validates the user input, Generates user and adds user to the database.
  * **/
 export const Register = async(req, res) => {
-    const { name, email, password, confPassword } = req.body;
 
+    const { name, email, password, confPassword } = req.body;
     if(name === "" || email === "" || password === "" || confPassword === ""){
         return res.status(400).json({msg: "Fill all fields"});
     }else if (password !== confPassword){
         return res.status(400).json({msg: "Passwords don't match"});
     }else if(!validateEmail(email)){
         return res.status(400).json({msg: "Incorrect email"});
+    }else if(await findUser(email)){
+        return res.status(400).json({msg: "User already exists"})
     }
-    //Encrypts the password before adding user credentias to the database.
+    //Encrypts the password before adding user credentials to the database.
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
     try {

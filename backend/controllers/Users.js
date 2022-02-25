@@ -2,11 +2,14 @@ import Credentials from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-
-
-// We didn't need to destructure the result here - the results were returned directly
-
-
+/**
+ * @author Jukka-Pekka Lappalainen
+ * @param {string} password - User's password.
+ * Checks if the string contains uppercase.
+ * **/
+function hasUpperCase(password) {
+    return(/[A-Z]/.test(password))
+}
 /**
  * Validates the user's email address.
  * @param {string} email - The users email address.
@@ -18,6 +21,20 @@ const validateEmail = (email) => {
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
 };
+/**
+ * @param {string} password - The user's password
+ * @param {string} confPass - The user's confirmation password.
+ * Validates the user password
+ * **/
+const validatePassword =(password) => {
+    let passwordValidation;
+
+    if(hasUpperCase(password)){
+        passwordValidation = true;
+    }else{
+        console.log("uppercase")
+    }
+}
 /**
  * lists the users in the database.
  * **/
@@ -49,14 +66,12 @@ export const findUser = async (email) => {
         console.log(error);
     }
 }
-
-
 /**
  * Validates the user input, Generates user and adds user to the database.
  * **/
 export const Register = async(req, res) => {
-
     const { name, email, password, confPassword } = req.body;
+
     if(name === "" || email === "" || password === "" || confPassword === ""){
         return res.status(400).json({msg: "Fill all fields"});
     }else if (password !== confPassword){
@@ -65,8 +80,11 @@ export const Register = async(req, res) => {
         return res.status(400).json({msg: "Incorrect email"});
     }else if(await findUser(email)){
         return res.status(400).json({msg: "User already exists"})
+    }else if(isUppercase(password)){
+        return res.status(400).json({msg: "Password needs to be at least 8 characters and contain one uppercase"})
     }
-    //Encrypts the password before adding user credentials to the database.
+
+    //Encrypts the password and adds credentials to the database.
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
     try {
@@ -75,12 +93,13 @@ export const Register = async(req, res) => {
             email: email,
             password: hashPassword
         });
+        isUppercase(password)
+        console.log(password, "lll")
         res.json({msg: "Registration Successful"});
     } catch (error) {
         console.log(error);
     }
 }
-
 
 export const Login = async(req, res) => {
     try {

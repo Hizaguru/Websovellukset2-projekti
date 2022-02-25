@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import '../css/login.css'
-import logo from '../images/img_avatar2.png'
+import logo from '../images/lukeIsStrong.jpg'
 
 const Login = () => {
 

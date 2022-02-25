@@ -1,1 +1,7 @@
+frontend/node_modules
+frontend/src/images
+frontend/Dockerfile
+frontend/.dockerignore
+backend/Dockerfile
+backend/.dockerignore
 backend/node_modules

@@ -15,14 +15,12 @@ const validateEmail = (email) => {
  * @param {string} confPass - The user's confirmation password.
  * Validates the user password
  * **/
-const validatePassword =(password) => {
+const validLength = (password) => {
     let passwordValidation = true;
-
     if(password.length <= 8){
         passwordValidation = false;
-    }else if(password.length >= 20){
-        passwordValidation = false;
     }
+    return passwordValidation;
 }
 /**
  * @author Jukka-Pekka Lappalainen
@@ -42,4 +40,4 @@ function hasSpecialCharacters(password){
     return format.test(password);
 }
 
-export {validateEmail, validatePassword, hasUpperCase, hasSpecialCharacters}
+export {validateEmail, validLength, hasUpperCase, hasSpecialCharacters}

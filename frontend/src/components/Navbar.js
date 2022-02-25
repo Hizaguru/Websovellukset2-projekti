@@ -22,7 +22,6 @@ const Navbar = () => {
                     <a className="navbar-item" href="https://www.jukkis.org">
                         <img src={logo} width="112" height="28" alt="logo" />
                     </a>
-
                     <a href="/" role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>

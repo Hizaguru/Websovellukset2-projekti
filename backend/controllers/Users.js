@@ -1,7 +1,7 @@
 import Credentials from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import {validateEmail} from "./credentialController.js";
+import {validateEmail, hasUpperCase, hasSpecialCharacters, validLength} from "./credentialController.js";
 
 
 
@@ -15,8 +15,6 @@ export const getUsers = async(req, res) => {
         const users = await Credentials.findAll({
             attributes:['id','name','email']
         });
-        console.log(users)
-        console.log("getUsers method")
         res.json(users);
     } catch (error) {
         console.log(error);
@@ -28,12 +26,7 @@ export const findUser = async (email) => {
         const user = await Credentials.findOne({
             where: {email: email}
         });
-        console.log(user)
-        console.log("findUser method")
-        if(user === null){
-            return false;
-        }
-        return true;
+        return user !== null;
     } catch (error){
         console.log(error);
     }
@@ -52,8 +45,12 @@ export const Register = async(req, res) => {
         return res.status(400).json({msg: "Incorrect email"});
     }else if(await findUser(email)){
         return res.status(400).json({msg: "User already exists"})
-    }else if(isUppercase(password)){
-        return res.status(400).json({msg: "Password needs to be at least 8 characters and contain one uppercase"})
+    }else if(!hasUpperCase(password)){
+        return res.status(400).json({msg: "Password needs to contain at least one uppercase"})
+    }else if(!hasSpecialCharacters(password)){
+        return res.status(400).json({msg: "Password needs to contain at least one special character."})
+    }else if(!validLength(password)){
+        return res.status(400).json({msg: "Password needs to be longer than 8 characters."})
     }
 
     //Encrypts the password and adds credentials to the database.
@@ -65,14 +62,14 @@ export const Register = async(req, res) => {
             email: email,
             password: hashPassword
         });
-        isUppercase(password)
-        console.log(password, "lll")
         res.json({msg: "Registration Successful"});
     } catch (error) {
         console.log(error);
     }
 }
-
+/**
+ * Logs the user in.
+ * **/
 export const Login = async(req, res) => {
     try {
         const user = await Credentials.findAll({
@@ -80,14 +77,19 @@ export const Login = async(req, res) => {
                 email: req.body.email
             }
         });
+        //Informs the user if the user fills the wrong password.
         const match = await bcrypt.compare(req.body.password, user[0].password);
-        if(!match) return res.status(400).json({msg: "Wrong Password"});
+        if(!match){
+            return res.status(400).json({msg: "Wrong Password"});
+        }
         const userId = user[0].id;
         const name = user[0].name;
         const email = user[0].email;
+        //Creates the access token for the user that expires in 15 seconds.
         const accessToken = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET,{
             expiresIn: '15s'
         });
+        //Creates the refresh token for the user that expires after 24 hours.
         const refreshToken = jwt.sign({userId, name, email}, process.env.REFRESH_TOKEN_SECRET,{
             expiresIn: '1d'
         });
@@ -96,16 +98,20 @@ export const Login = async(req, res) => {
                 id: userId
             }
         });
+        //Creates the cookie that expires after 24 hours.
         res.cookie('refreshToken', refreshToken,{
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         });
         res.json({ accessToken });
     } catch (error) {
+        //Informs the user if he fills the wrong email.
         res.status(404).json({msg:"Email not found"});
     }
 }
-
+/**
+ * Logs out the user.
+ * **/
 export const Logout = async(req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if(!refreshToken) return res.sendStatus(204);

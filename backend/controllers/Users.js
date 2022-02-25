@@ -1,40 +1,12 @@
 import Credentials from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import {validateEmail} from "./credentialController.js";
 
-/**
- * @author Jukka-Pekka Lappalainen
- * @param {string} password - User's password.
- * Checks if the string contains uppercase.
- * **/
-function hasUpperCase(password) {
-    return(/[A-Z]/.test(password))
-}
-/**
- * Validates the user's email address.
- * @param {string} email - The users email address.
- * **/
-const validateEmail = (email) => {
-    return String(email)
-        .toLowerCase()
-        .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
-};
-/**
- * @param {string} password - The user's password
- * @param {string} confPass - The user's confirmation password.
- * Validates the user password
- * **/
-const validatePassword =(password) => {
-    let passwordValidation;
 
-    if(hasUpperCase(password)){
-        passwordValidation = true;
-    }else{
-        console.log("uppercase")
-    }
-}
+
+
+
 /**
  * lists the users in the database.
  * **/

@@ -5,7 +5,6 @@ import '../css/login.css'
 import logo from '../images/lukeIsStrong.jpg'
 
 const Login = () => {
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState('');
@@ -19,7 +18,7 @@ const Login = () => {
                 email: email,
                 password: password
             });
-            history.push("/profilepage");
+            history.push("/Dashboard");
         } catch (error) {
             console.log("error")
             console.log(email, " ", password)
@@ -29,9 +28,6 @@ const Login = () => {
             }
         }
     }
-
-
-
     return (
         <section className="hero has-background-grey-light is-fullheight is-fullwidth">
             <div className="hero-body">
@@ -70,5 +66,4 @@ const Login = () => {
         </section>
     )
 }
-
 export default Login

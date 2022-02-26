@@ -12,7 +12,6 @@ const validateEmail = (email) => {
 /**
  * @author Jukka-Pekka Lappalainen
  * @param {string} password - The user's password
- * @param {string} confPass - The user's confirmation password.
  * Validates the user password
  * **/
 const validLength = (password) => {
@@ -39,5 +38,14 @@ function hasSpecialCharacters(password){
     let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     return format.test(password);
 }
+/**
+ * @author Jukka-Pekka Lappalainen
+ * This checks that the passwords in the register-form are equal.
+ * @param {string} password - The user's password
+ * @param {string} confPass - The user's confirmation password.
+ * **/
+function passwordsMatch(password, confPassword){
+    return password === confPassword;
+}
 
-export {validateEmail, validLength, hasUpperCase, hasSpecialCharacters}
+export {validateEmail, validLength, hasUpperCase, hasSpecialCharacters, passwordsMatch}

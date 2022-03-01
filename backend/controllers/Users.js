@@ -45,7 +45,7 @@ export const Register = async(req, res) => {
 
     if(name === "" || email === "" || password === "" || confPassword === ""){
         return res.status(400).json({msg: "Fill all fields"});
-    }else if (passwordsMatch(password, confPassword)){
+    }else if (!passwordsMatch(password, confPassword)){
         return res.status(400).json({msg: "Passwords don't match"});
     }else if(!validateEmail(email)){
         return res.status(400).json({msg: "Incorrect email"});

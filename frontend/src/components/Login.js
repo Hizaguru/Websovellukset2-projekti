@@ -18,7 +18,7 @@ const Login = () => {
                 email: email,
                 password: password
             });
-            history.push("/Dashboard");
+            history.push("/ProfilePage");
         } catch (error) {
             console.log("error")
             console.log(email, " ", password)
@@ -34,7 +34,6 @@ const Login = () => {
                 <div className="container">
                     <div className="columns is-centered">
                         <div className="column is-4-desktop">
-
                             <form onSubmit={Auth} className="box">
                                 <div className={"imagecontainer"}>
                                     <img src={logo} className={"avatar"} alt={"avatar"}/>

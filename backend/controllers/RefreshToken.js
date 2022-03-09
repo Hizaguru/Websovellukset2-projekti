@@ -1,4 +1,4 @@
-import Credentials from "../models/UserModel.js";
+import Credentials from "../models/CredentialsModel.js";
 import jwt from "jsonwebtoken";
 
 export const refreshToken = async(req, res) => {

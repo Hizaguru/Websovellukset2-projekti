@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import '../css/register.css'
+import logo from "../images/eventhandler.png";
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -34,52 +35,49 @@ const Register = () => {
     }
     
     return (
-        <section className="hero has-background-grey-light is-fullheight is-fullwidth">
-            <div className="hero-body">
-                <div className="container">
-                    <div className="columns is-centered">
-                        <div className="column is-4-desktop">
-                            <form onSubmit={Register} className="box">
-                                <h1 className={"header"}>Register</h1>
-                                <p className="has-text-centered">{msg}</p>
-                                <div className="field mt-5">
+        <div className="container">
+            <form onSubmit={Register} className="box">
+                <h1 className={"header"}>Register</h1>
+                <div className={"imagecontainer"}>
+                    <img src={logo} className={"avatar"} alt={"avatar"}/>
+                </div>
+                <p className="has-text-centered">{msg}</p>
+                <div className="field mt-5">
 
-                                    <label className="label">Name</label>
-                                    <div className="controls">
-                                        <input type="text" className="input" placeholder="Name"
-                                               value={name} onChange={(e) => setName(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div className="field mt-5">
-                                    <label className="label">Email</label>
-                                    <div className="controls">
-                                        <input type="text" className="input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div className="field mt-5">
-                                    <label className="label">Password</label>
-                                    <div className="controls">
-                                        <input type="password" className="input" placeholder="******" value={password} onChange={(e) => setPassword(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div className="field mt-5">
-                                    <label className="label">Confirm Password</label>
-                                    <div className="controls">
-                                        <input type="password" className="input" placeholder="******" value={confPassword} onChange={(e) => setConfPassword(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div className="field mt-5">
-                                    <button className="button is-success is-fullwidth">Register</button>
-                                </div>
-                                <div>
-                                    <span className={"psw"}>Already have an <a href={"/"}><u>account?</u></a></span>
-                                </div>
-                            </form>
-                        </div>
+                    <label className="label">Name</label>
+                    <div className="controls">
+                        <input type="text" className="input" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
                 </div>
-            </div>
-        </section>
+                <div className="field mt-5">
+                    <label className="label">Email</label>
+                    <div className="controls">
+                        <input type="text" className="input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </div>
+                </div>
+                <div className="field mt-5">
+                    <label className="label">Password</label>
+                    <div className="controls">
+                        <input type="password" className="input" placeholder="******" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </div>
+                </div>
+                <div className="field mt-5">
+                    <label className="label">Confirm Password</label>
+                    <div className="controls">
+                        <input type="password" className="input" placeholder="******" value={confPassword} onChange={(e) => setConfPassword(e.target.value)} />
+                    </div>
+                </div>
+                <div className="field mt-5">
+                    <button className="button is-success is-fullwidth">Register</button>
+                </div>
+                <div>
+                    <span className={"psw"}>Already have an <a href={"/"}><u>account?</u></a></span>
+                </div>
+            </form>
+        </div>
+
+
+
     )
 }
 

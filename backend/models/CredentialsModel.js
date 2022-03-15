@@ -2,7 +2,9 @@ import {Sequelize} from "sequelize";
 import db from "../config/Database.js";
 
 const {DataTypes} = Sequelize;
-
+/**
+ * Adds data to the credentials table.
+ * **/
 const Credentials = db.define('credentials', {
     name: {
         type: DataTypes.STRING

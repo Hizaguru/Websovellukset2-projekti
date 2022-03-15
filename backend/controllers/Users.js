@@ -26,7 +26,10 @@ export const getUsers = async(req, res) => {
         console.log(error);
     }
 }
-
+/**
+ * Fetches the user with certain email.
+ * @param {string} email
+ * **/
 export const findUser = async (email) => {
     try{
         const user = await Credentials.findOne({

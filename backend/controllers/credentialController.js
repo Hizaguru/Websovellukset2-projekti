@@ -1,4 +1,5 @@
 /**
+ * @author Jukka-Pekka Lappalainen
  * Validates the user's email address.
  * @param {string} email - The users email address.
  * **/
@@ -47,5 +48,5 @@ function hasSpecialCharacters(password){
 function passwordsMatch(password, confPassword){
     return password === confPassword;
 }
-
+//exports the functions.
 export {validateEmail, validLength, hasUpperCase, hasSpecialCharacters, passwordsMatch}

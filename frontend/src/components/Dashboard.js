@@ -1,9 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import { useHistory } from 'react-router-dom';
 
+/**
+ * Dashboard controller that shows the logged-in user info in the dashboard.
+ * **/
 const Dashboard = () => {
     const [name, setName] = useState('');
     const [token, setToken] = useState('');
@@ -16,6 +19,9 @@ const Dashboard = () => {
         getUsers();
     }, []);
 
+    /**
+     * Creates the refreshtoken for the user.
+     * **/
     const refreshToken = async () => {
         try {
             const response = await axios.get('http://localhost:5000/token');
@@ -32,8 +38,17 @@ const Dashboard = () => {
 
     const axiosJWT = axios.create();
 
+
+
+    /**
+     * The response interceptor checks to see if the API returned a 403
+     * status due to an expired token.
+     * If so, it calls a function to refresh the access token which it uses
+     * for its call.
+     * **/
     axiosJWT.interceptors.request.use(async (config) => {
         const currentDate = new Date();
+
         if (expire * 1000 < currentDate.getTime()) {
             const response = await axios.get('http://localhost:5000/token');
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
@@ -47,6 +62,10 @@ const Dashboard = () => {
         return Promise.reject(error);
     });
 
+
+    /**
+     * sets the auth token for the user.
+     * **/
     const getUsers = async () => {
         const response = await axiosJWT.get('http://localhost:5000/users', {
             headers: {

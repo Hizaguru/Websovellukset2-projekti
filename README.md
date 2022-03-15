@@ -11,6 +11,7 @@ await axios.post('http://localhost:5000/credentials', {
                 confPassword: confPassword
 
             });
+            
 Deletes the refreshTOken:
 
 const Logout = async () => {
